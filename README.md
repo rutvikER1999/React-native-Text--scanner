@@ -13,3 +13,6 @@ this project is based on following modules >>>>>>>>>
  "react-native-text-detector": "^0.0.6",
  
  
+run following cmd
+---> yarn start
+---> npx-react-native-run-android
