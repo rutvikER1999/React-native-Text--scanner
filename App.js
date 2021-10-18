@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { TouchableOpacity, View, Button, Text, ActivityIndicator, Dimensions, Modal, Image, ScrollView } from "react-native";
+import { TouchableOpacity, View, Button, Text, ActivityIndicator, Dimensions, Modal, Image, ScrollView, PermissionsAndroid } from "react-native";
 import { RNCamera as Camera } from "react-native-camera";
 import RNTextDetector from "react-native-text-detector";
 import ImageEditor from "@react-native-community/image-editor";
@@ -17,7 +17,7 @@ const App = () => {
   }, [imageUri])
 
   const camRef = useRef()
-console.log(Dimensions.get('screen').height, Dimensions.get('screen').width)
+// console.log(Dimensions.get('screen').height, Dimensions.get('screen').width)
 
 const idGenerator = () => {
     var S4 = () => {
@@ -26,6 +26,29 @@ const idGenerator = () => {
     return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
 }
 
+// const checkPermmissionCamera = async() => {
+//   try {
+//     const granted = await PermissionsAndroid.request(
+//       PermissionsAndroid.PERMISSIONS.CAMERA,
+//       {
+//         title: "MapTrak Camera Permission",
+//         message:
+//           "MapTrak App needs access to your camera " +
+//           "so you can Scan Number-Plates.",
+//         buttonNeutral: "Ask Me Later",
+//         buttonNegative: "Cancel",
+//         buttonPositive: "OK"
+//       }
+//     );
+//     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+//       return true;
+//     } else {
+//       return false
+//     }
+//   } catch (err) {
+//     console.warn(err);
+//   }
+// }
 
 
 
@@ -76,6 +99,18 @@ const idGenerator = () => {
     }
   }
 
+  // const cameraPermission = checkPermmissionCamera();
+
+  // if(cameraPermission==false){
+  //   return <View style={{
+  //     flex:1,
+  //     backgroundColor: 'white',
+  //     justifyContent:'center',
+  //     alignItems:'center'
+  //     }}>
+  //       <Text style={{alignSelf:'center'}}>Please Enable Camera Permission</Text>
+  //   </View>
+  // }
 
   return (
     <View style={{ 
@@ -95,7 +130,7 @@ const idGenerator = () => {
                }
                <Button title='remove all text' onPress={()=> setTextList([])}></Button>
              </ScrollView>
-             </Modal> 
+        </Modal> 
       <Camera
       style={{flexGrow:1}}
       ref = {camRef}
@@ -112,6 +147,10 @@ const idGenerator = () => {
         <BarcodeMask
          width={Dimensions.get('screen').width-100}
          height={320}
+         showAnimatedLine={false}
+         edgeWidth={0}
+         edgeHeight={0}
+         edgeBorderWidth={0}
          />
            <View style={{ justifyContent: 'flex-end', alignItems: 'center', flex:1 }}>
              {
